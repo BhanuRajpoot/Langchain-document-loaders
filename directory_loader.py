@@ -1,4 +1,4 @@
-from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -15,7 +15,7 @@ prompt = PromptTemplate(
 
 perser = StrOutputParser()
 chain = prompt | model | perser
-loader = DirectoryLoader("data", glob="*.pdf", encoding="utf-8", loader_cls=PyPDFLoader)
+loader = DirectoryLoader("data", glob="*.pdf", encoding="utf-8", loader_cls=PyPDFLoader, loader_kwargs={"encoding": "utf-8"})
 
 documents = loader.load()
 
